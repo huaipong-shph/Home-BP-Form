@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบแบบบันทึกค่าความดันโลหิตที่บ้าน</title>
+    <title>ระบบพิมพ์แบบบันทึกค่าความดันโลหิตที่บ้าน</title>
     
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,22 +20,34 @@
         }
         
         @media print {
-            body {
-                background-color: white;
-            }
-            .no-print {
-                display: none !important;
-            }
-            .print-container {
-                box-shadow: none !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                width: 100% !important;
-                max-width: none !important;
-            }
             @page {
                 size: A4;
-                margin: 15mm;
+                margin: 0; /* ปิด margin เริ่มต้นของเครื่องปริ้น เพื่อใช้ padding ของเราเอง */
+            }
+            body {
+                margin: 0;
+                background-color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            #form-section, .no-print {
+                display: none !important;
+            }
+            #print-section {
+                display: block !important;
+                margin: 0 !important;
+                padding: 15mm !important; /* คงระยะขอบให้ตรงกับหน้า Preview */
+                width: 210mm !important;
+                height: 297mm !important; /* บังคับขนาดกระดาษ A4 */
+                max-width: none !important;
+                box-shadow: none !important;
+                border: none !important;
+                box-sizing: border-box;
+                overflow: hidden; /* ป้องกันเนื้อหาล้นขึ้นหน้าที่ 2 */
+            }
+            /* ปรับลดระยะห่างบางจุดตอนสั่งพิมพ์ เพื่อรับประกันว่าไม่ตกหน้า */
+            .mt-10 {
+                margin-top: 1.5rem !important;
             }
         }
 
@@ -45,146 +57,120 @@
             text-align: center;
             min-height: 1.5rem;
         }
-
-        /* Customize scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="text-gray-800 antialiased min-h-screen pb-10">
 
-    <div id="form-view" class="min-h-screen py-10 px-4 flex items-center justify-center">
-        <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-4xl border border-gray-100">
-            <!-- Header -->
-            <div class="text-center mb-6 flex flex-col gap-0.5">
-                <h1 class="text-2xl md:text-3xl font-bold text-blue-800 tracking-tight">ระบบพิมพ์แบบบันทึกค่าความดันโลหิตที่บ้าน</h1>
-                <h2 class="text-lg md:text-xl font-bold text-gray-800">โรงพยาบาลส่งเสริมสุขภาพตำบลห้วยโป่ง</h2>
-                <p class="text-lg md:text-xl text-gray-600 font-medium">ตำบลห้วยโป่ง อำเภอหนองไผ่ จังหวัดเพชรบูรณ์</p>
+    <div id="form-section" class="max-w-2xl mx-auto mt-6 md:mt-12 bg-white p-6 md:p-10 rounded-2xl shadow-lg border border-gray-100">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-blue-800 mb-2">ระบบพิมพ์แบบบันทึกค่าความดันโลหิตที่บ้าน</h1>
+            <h2 class="text-xl font-bold text-gray-800 mb-1">โรงพยาบาลส่งเสริมสุขภาพตำบลห้วยโป่ง</h2>
+            <p class="text-lg text-gray-600">ตำบลห้วยโป่ง อำเภอหนองไผ่ จังหวัดเพชรบูรณ์</p>
+        </div>
+
+        <form id="bp-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+            
+            <!-- ข้อมูลส่วนตัว -->
+            <div class="bg-blue-50 p-5 rounded-xl border border-blue-100">
+                <h3 class="text-md font-semibold text-blue-800 mb-4">ข้อมูลผู้ป่วย</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="col-span-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">คำนำหน้า</label>
+                        <select id="prefix" required class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                            <option value="" disabled selected>เลือก</option>
+                            <option value="นาย">นาย</option>
+                            <option value="นาง">นาง</option>
+                            <option value="นางสาว">นางสาว</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อ-สกุล</label>
+                        <input type="text" id="fullname" required placeholder="กรอกชื่อ-นามสกุล" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <div class="col-span-1 md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">บ้านเลขที่</label>
+                        <input type="text" id="houseNo" required placeholder="เช่น 123/4" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                    </div>
+                    <div class="col-span-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">หมู่ที่</label>
+                        <input type="text" id="moo" required placeholder="เช่น 1" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                    </div>
+                    <div class="col-span-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">อายุ (ปี)</label>
+                        <input type="number" id="age" required min="1" max="150" placeholder="อายุ" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์</label>
+                    <input type="tel" id="phone" required placeholder="08X-XXX-XXXX" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                </div>
             </div>
 
-            <form id="bp-form" onsubmit="generatePreview(event)" class="space-y-6">
-                <!-- ข้อมูลส่วนตัว -->
-                <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
-                    <h2 class="text-xl font-semibold text-blue-700 mb-4 border-b border-blue-200 pb-2">ข้อมูลผู้ป่วย</h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-                        <!-- คำนำหน้า -->
-                        <div class="md:col-span-3">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">คำนำหน้า</label>
-                            <select id="prefix" required class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                                <option value="" disabled selected>เลือกคำนำหน้า</option>
-                                <option value="นาย">นาย</option>
-                                <option value="นาง">นาง</option>
-                                <option value="นางสาว">นางสาว</option>
-                            </select>
-                        </div>
-
-                        <!-- ชื่อ-สกุล -->
-                        <div class="md:col-span-6">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อ-สกุล</label>
-                            <input type="text" id="fullname" required placeholder="กรอกชื่อและนามสกุล" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                        </div>
-
-                        <!-- อายุ -->
-                        <div class="md:col-span-3">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">อายุ (ปี)</label>
-                            <input type="number" id="age" required min="1" max="150" placeholder="ระบุอายุ" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                        </div>
-
-                        <!-- บ้านเลขที่ -->
-                        <div class="md:col-span-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">บ้านเลขที่</label>
-                            <input type="text" id="houseNo" required placeholder="เช่น 123/4" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                        </div>
-
-                        <!-- หมู่ -->
-                        <div class="md:col-span-3">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">หมู่ที่</label>
-                            <input type="text" id="moo" required placeholder="เช่น 1" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                        </div>
-
-                        <!-- เบอร์โทรศัพท์ -->
-                        <div class="md:col-span-5">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์</label>
-                            <input type="tel" id="phone" required placeholder="08X-XXX-XXXX" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            <!-- ข้อมูลวันที่ -->
+            <div class="bg-green-50 p-5 rounded-xl border border-green-100">
+                <h3 class="text-md font-semibold text-green-800 mb-4">กำหนดการบันทึก</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">วันเริ่มต้น</label>
+                        <input type="date" id="startDate" required onchange="handleDateChange()" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">วันสิ้นสุด (7 วัน)</label>
+                        <div class="bg-gray-100 border border-gray-200 rounded-lg p-2.5 flex items-center h-[42px]">
+                            <span id="endDateDisplay" class="text-sm font-medium text-gray-600"></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- ข้อมูลวันที่ -->
-                <div class="bg-green-50 p-6 rounded-xl border border-green-100">
-                    <h2 class="text-xl font-semibold text-green-700 mb-4 border-b border-green-200 pb-2">กำหนดการบันทึกและส่งคืน</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">เลือกวันเริ่มต้นบันทึก (7 วัน)</label>
-                            <input type="date" id="startDate" required onchange="updateEndDate()" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition">
-                        </div>
-                        <div class="flex flex-col justify-end">
-                            <div class="bg-white border border-green-200 rounded-lg p-2.5 text-center shadow-sm flex items-center justify-center gap-2 h-[46px]">
-                                <span class="text-sm font-medium text-gray-600">สิ้นสุดวันที่:</span>
-                                <span id="endDateDisplay" class="font-bold text-green-700"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1 text-blue-700">วันที่ต้องส่ง รพ.สต.</label>
-                            <input type="date" id="submitDate" required class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-sm">
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-3">* ระบบจะสร้างตารางบันทึกผล 7 วันให้อัตโนมัติตามวันที่เลือก</p>
+                <div class="pt-2 border-t border-green-200 mt-4">
+                    <label class="block text-sm font-medium text-blue-700 mb-1">วันที่ต้องส่ง รพ.สต.</label>
+                    <input type="date" id="submitDate" required class="w-full bg-white border border-gray-300 text-blue-800 font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none shadow-sm">
                 </div>
+            </div>
 
-                <!-- ปุ่มดำเนินการ -->
-                <div class="flex justify-center gap-4 pt-4 border-t border-gray-200">
-                    <button type="button" onclick="clearForm()" class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 font-medium transition flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        ล้างค่า
-                    </button>
-                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 font-medium transition flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                        Preview แบบฟอร์ม
-                    </button>
-                </div>
-            </form>
-        </div>
+            <div class="flex gap-4 pt-4">
+                <button type="button" onclick="clearForm()" class="w-1/3 py-3 bg-white text-gray-700 border border-gray-300 rounded-xl shadow-sm hover:bg-gray-50 font-medium transition">
+                    ล้างค่า
+                </button>
+                <button type="submit" class="w-2/3 py-3 bg-blue-600 text-white rounded-xl shadow-md hover:bg-blue-700 font-medium transition flex justify-center items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    สร้าง Preview แบบฟอร์ม
+                </button>
+            </div>
+        </form>
     </div>
 
-    <div id="print-view" class="hidden min-h-screen py-10 px-4 bg-gray-200">
-        <!-- Toolbar for Print Mode -->
-        <div class="max-w-[210mm] mx-auto mb-4 flex justify-between items-center no-print bg-white p-4 rounded-lg shadow-sm">
-            <button onclick="backToForm()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition font-medium flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div id="print-section" class="hidden max-w-[210mm] mx-auto bg-white shadow-xl mt-8 mb-8 p-[15mm]">
+        
+        <!-- Toolbar (Hidden in Print) -->
+        <div class="no-print flex justify-between items-center bg-gray-100 p-4 rounded-xl mb-8 border border-gray-200">
+            <button onclick="backToForm()" class="px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition font-medium flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 กลับไปแก้ไข
             </button>
-            <button onclick="window.print()" class="px-6 py-2 bg-green-600 text-white rounded shadow-md hover:bg-green-700 transition font-medium flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button onclick="window.print()" class="px-6 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition font-medium flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                 </svg>
-                สั่งพิมพ์ (Print)
+                สั่งพิมพ์
             </button>
         </div>
 
-        <!-- The actual A4 Print Document -->
-        <div class="print-container max-w-[210mm] min-h-[297mm] mx-auto bg-white shadow-xl p-[15mm] text-[15px] text-black">
+        <!-- Print Content Start -->
+        <div class="text-[15px] text-black">
             
             <!-- Submit Date -->
             <div class="flex justify-end mb-2 text-[14px]">
@@ -199,7 +185,7 @@
                 แบบบันทึกค่าความดันโลหิตที่บ้าน
             </div>
 
-            <!-- Patient Information -->
+            <!-- Patient Info -->
             <div class="mb-4 text-[15px]">
                 <!-- Row 1: Name, House No, Moo, Age -->
                 <div class="flex items-end justify-between w-full mb-3">
@@ -222,6 +208,7 @@
                         <span class="whitespace-nowrap ml-1">ปี</span>
                     </div>
                 </div>
+                
                 <!-- Row 2: Hospital, Phone -->
                 <div class="flex items-end w-full mb-2">
                     <div class="flex flex-1 mr-8">
@@ -235,7 +222,6 @@
                 </div>
             </div>
 
-            <!-- Table -->
             <table class="w-full border-collapse border border-black text-center mt-4 mb-2 text-[14px]">
                 <thead>
                     <tr>
@@ -246,21 +232,21 @@
                         <th class="border border-black px-1 py-1" colspan="3">ก่อนนอน ครั้งที่ 2</th>
                     </tr>
                     <tr>
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ตัวบน</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ตัวล่าง</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ชีพจร</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวบน</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวล่าง</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ชีพจร</th>
                         
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ตัวบน</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ตัวล่าง</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ชีพจร</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวบน</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวล่าง</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ชีพจร</th>
                         
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ตัวบน</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ตัวล่าง</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ชีพจร</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวบน</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวล่าง</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ชีพจร</th>
                         
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ตัวบน</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ตัวล่าง</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal">ชีพจร</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวบน</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวล่าง</th>
+                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ชีพจร</th>
                     </tr>
                 </thead>
                 <tbody id="preview-tbody">
@@ -268,7 +254,7 @@
                 </tbody>
             </table>
 
-            <!-- Footnotes -->
+            <!-- Footnotes & Instructions -->
             <div class="mb-4 text-[14px]">
                 <p class="font-bold">***หมายเหตุ: กรุณาเขียนตัวเลขให้อยู่ในช่อง และเขียนด้วยตัวบรรจงให้อ่านออก</p>
                 <div class="mt-4 flex justify-center items-center text-center w-full">
@@ -277,7 +263,6 @@
                 </div>
             </div>
 
-            <!-- Guidelines -->
             <div class="text-[14px] leading-relaxed mt-10">
                 <p class="font-bold mb-4 text-center text-lg">แนวทางการวัดความดันโลหิตที่บ้าน</p>
                 <ol class="list-decimal list-inside space-y-0.5">
@@ -300,12 +285,14 @@
                     อสม.ที่รับผิดชอบ <span class="dotted-line w-[200px]"></span>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
-        // Format Date to Thai locale string (e.g., 19 สิงหาคม 2569)
+        // Set Default Date on Load
+        document.getElementById('startDate').valueAsDate = new Date();
+        
+        // Format Date to Thai locale string
         function formatThaiDate(dateObj) {
             const months = [
                 "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", 
@@ -313,42 +300,40 @@
             ];
             const day = dateObj.getDate();
             const month = months[dateObj.getMonth()];
-            // Convert to Buddhist Era (พ.ศ.)
             const year = dateObj.getFullYear() + 543;
-            
             return `${day} ${month} ${year}`;
         }
 
-        // Update End Date Display dynamically
-        function updateEndDate() {
+        // Handle Date Changes (Update End Date text)
+        function handleDateChange() {
             const startDateInput = document.getElementById('startDate').value;
             if (startDateInput) {
                 const startDate = new Date(startDateInput);
                 const endDate = new Date(startDate);
-                endDate.setDate(startDate.getDate() + 6); // Add 6 days to make it a 7-day period
+                endDate.setDate(startDate.getDate() + 6);
                 document.getElementById('endDateDisplay').innerText = formatThaiDate(endDate);
+            } else {
+                document.getElementById('endDateDisplay').innerText = '';
             }
         }
 
-        // Set default date to today and init end date on page load
-        document.getElementById('startDate').valueAsDate = new Date();
-        updateEndDate();
+        // Initial setup for end date display
+        handleDateChange();
 
-        // Clear Form Function
+        // Clear Form
         function clearForm() {
             document.getElementById('bp-form').reset();
             document.getElementById('startDate').valueAsDate = new Date();
             document.getElementById('submitDate').value = '';
-            updateEndDate();
+            handleDateChange();
         }
 
-        // Generate Preview Function (Main logic)
-        function generatePreview(event) {
-            // Prevent default form submission
+        // Handle Submit & Generate Preview
+        function handleFormSubmit(event) {
             event.preventDefault();
 
-            // Get Form Values
-            const prefix = document.getElementById('prefix').value;
+            // Get Values
+            const prefix = document.getElementById('prefix').value || '';
             const fullname = document.getElementById('fullname').value;
             const age = document.getElementById('age').value;
             const houseNo = document.getElementById('houseNo').value;
@@ -357,63 +342,57 @@
             const startDateInput = document.getElementById('startDate').value;
             const submitDateInput = document.getElementById('submitDate').value;
 
-            // Map data to Print View
+            // Map standard data
             document.getElementById('prev-name').innerText = `${prefix}${fullname}`;
             document.getElementById('prev-age').innerText = age;
             document.getElementById('prev-house').innerText = houseNo;
             document.getElementById('prev-moo').innerText = moo;
             document.getElementById('prev-phone').innerText = phone;
             
-            // Format and Set Submit Date
+            // Map submit date
             if(submitDateInput) {
                 const submitDateObj = new Date(submitDateInput);
                 document.getElementById('prev-submit-date').innerText = formatThaiDate(submitDateObj);
+            } else {
+                document.getElementById('prev-submit-date').innerText = '';
             }
 
             // Generate Dates Table (7 Days)
-            const startDate = new Date(startDateInput);
             const tbody = document.getElementById('preview-tbody');
-            tbody.innerHTML = ''; // Clear existing rows
+            tbody.innerHTML = ''; 
 
-            for (let i = 0; i < 7; i++) {
-                let currentDate = new Date(startDate);
-                currentDate.setDate(startDate.getDate() + i);
+            if (startDateInput) {
+                const startDate = new Date(startDateInput);
                 
-                let thaiDateText = formatThaiDate(currentDate);
+                for (let i = 0; i < 7; i++) {
+                    let currentDate = new Date(startDate);
+                    currentDate.setDate(startDate.getDate() + i);
+                    let thaiDateText = formatThaiDate(currentDate);
 
-                // Create a row with 13 columns (1 date + 12 empty input slots)
-                let rowHtml = `
-                    <tr>
-                        <td class="border border-black px-0.5 py-3 text-center text-[13px] whitespace-nowrap">${thaiDateText}</td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                        <td class="border border-black"></td>
-                    </tr>
-                `;
-                tbody.innerHTML += rowHtml;
+                    /* เปลี่ยน py-3 เป็น py-2 เพื่อลดความสูงตารางลงเล็กน้อย ป้องกันตกหน้ากระดาษ แต่ยังมีพื้นที่พอเขียน */
+                    let rowHtml = `
+                        <tr>
+                            <td class="border border-black px-0.5 py-2 text-center text-[13px] whitespace-nowrap">${thaiDateText}</td>
+                            <td class="border border-black"></td><td class="border border-black"></td><td class="border border-black"></td>
+                            <td class="border border-black"></td><td class="border border-black"></td><td class="border border-black"></td>
+                            <td class="border border-black"></td><td class="border border-black"></td><td class="border border-black"></td>
+                            <td class="border border-black"></td><td class="border border-black"></td><td class="border border-black"></td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += rowHtml;
+                }
             }
 
-            // Switch Views from Form to Print
-            document.getElementById('form-view').classList.add('hidden');
-            document.getElementById('print-view').classList.remove('hidden');
-            
-            // Scroll to top
+            // Switch Views
+            document.getElementById('form-section').classList.add('hidden');
+            document.getElementById('print-section').classList.remove('hidden');
             window.scrollTo(0, 0);
         }
 
-        // Back to Form Function
+        // Back to Form View
         function backToForm() {
-            document.getElementById('print-view').classList.add('hidden');
-            document.getElementById('form-view').classList.remove('hidden');
+            document.getElementById('print-section').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
             window.scrollTo(0, 0);
         }
     </script>
