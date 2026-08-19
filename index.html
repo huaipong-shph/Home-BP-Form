@@ -67,25 +67,25 @@
 </head>
 <body class="text-gray-800 antialiased min-h-screen pb-10">
 
-    <div id="form-section" class="max-w-4xl mx-auto mt-6 md:mt-12 bg-white p-6 md:p-10 rounded-2xl shadow-lg border border-gray-100">
+    <div id="form-section" class="max-w-5xl mx-auto mt-6 md:mt-12 bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
         
         <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-2xl font-bold text-blue-800 mb-2">ระบบพิมพ์แบบบันทึกค่าความดันโลหิตที่บ้าน</h1>
-            <h2 class="text-xl font-bold text-gray-800 mb-1">โรงพยาบาลส่งเสริมสุขภาพตำบลห้วยโป่ง</h2>
-            <p class="text-lg text-gray-600">ตำบลห้วยโป่ง อำเภอหนองไผ่ จังหวัดเพชรบูรณ์</p>
+        <div class="text-center mb-10 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-3">ระบบพิมพ์แบบบันทึกค่าความดันโลหิตที่บ้าน</h1>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">โรงพยาบาลส่งเสริมสุขภาพตำบลห้วยโป่ง</h2>
+            <p class="text-xl md:text-2xl text-gray-600">ตำบลห้วยโป่ง อำเภอหนองไผ่ จังหวัดเพชรบูรณ์</p>
         </div>
 
-        <form id="bp-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+        <form id="bp-form" onsubmit="handleFormSubmit(event)" class="space-y-8">
             
             <!-- ข้อมูลส่วนตัว -->
-            <div class="bg-blue-50 p-5 rounded-xl border border-blue-100">
-                <h3 class="text-md font-semibold text-blue-800 mb-4">ข้อมูลผู้ป่วย</h3>
+            <div class="bg-blue-50 p-6 md:p-8 rounded-2xl border border-blue-100">
+                <h3 class="text-lg md:text-xl font-semibold text-blue-800 mb-5">ข้อมูลผู้ป่วย</h3>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <div class="col-span-1">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">คำนำหน้า</label>
-                        <select id="prefix" required class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                        <label class="block text-base md:text-lg font-medium text-gray-700 mb-2">คำนำหน้า</label>
+                        <select id="prefix" required class="w-full bg-white border border-gray-300 text-gray-800 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 md:p-4 outline-none">
                             <option value="" disabled selected>เลือก</option>
                             <option value="นาย">นาย</option>
                             <option value="นาง">นาง</option>
@@ -93,61 +93,61 @@
                         </select>
                     </div>
                     <div class="col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อ-สกุล</label>
-                        <input type="text" id="fullname" required placeholder="กรอกชื่อ-นามสกุล" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                        <label class="block text-base md:text-lg font-medium text-gray-700 mb-2">ชื่อ-สกุล</label>
+                        <input type="text" id="fullname" required placeholder="กรอกชื่อ-นามสกุล" class="w-full bg-white border border-gray-300 text-gray-800 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 md:p-4 outline-none">
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
                     <div class="col-span-1 md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">บ้านเลขที่</label>
-                        <input type="text" id="houseNo" required placeholder="เช่น 123/4" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                        <label class="block text-base md:text-lg font-medium text-gray-700 mb-2">บ้านเลขที่</label>
+                        <input type="text" id="houseNo" required placeholder="เช่น 123/4" class="w-full bg-white border border-gray-300 text-gray-800 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 md:p-4 outline-none">
                     </div>
                     <div class="col-span-1">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">หมู่ที่</label>
-                        <input type="text" id="moo" required placeholder="เช่น 1" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                        <label class="block text-base md:text-lg font-medium text-gray-700 mb-2">หมู่ที่</label>
+                        <input type="text" id="moo" required placeholder="เช่น 1" class="w-full bg-white border border-gray-300 text-gray-800 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 md:p-4 outline-none">
                     </div>
                     <div class="col-span-1">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">อายุ (ปี)</label>
-                        <input type="number" id="age" required min="1" max="150" placeholder="อายุ" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                        <label class="block text-base md:text-lg font-medium text-gray-700 mb-2">อายุ (ปี)</label>
+                        <input type="number" id="age" required min="1" max="150" placeholder="อายุ" class="w-full bg-white border border-gray-300 text-gray-800 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 md:p-4 outline-none">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์</label>
-                    <input type="tel" id="phone" required placeholder="08X-XXX-XXXX" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                    <label class="block text-base md:text-lg font-medium text-gray-700 mb-2">เบอร์โทรศัพท์</label>
+                    <input type="tel" id="phone" required placeholder="08X-XXX-XXXX" class="w-full bg-white border border-gray-300 text-gray-800 text-lg rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 md:p-4 outline-none">
                 </div>
             </div>
 
             <!-- ข้อมูลวันที่ -->
-            <div class="bg-green-50 p-5 rounded-xl border border-green-100">
-                <h3 class="text-md font-semibold text-green-800 mb-4">กำหนดการบันทึก</h3>
+            <div class="bg-green-50 p-6 md:p-8 rounded-2xl border border-green-100">
+                <h3 class="text-lg md:text-xl font-semibold text-green-800 mb-5">กำหนดการบันทึก</h3>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">วันเริ่มต้น</label>
-                        <input type="date" id="startDate" required onchange="handleDateChange()" class="w-full bg-white border border-gray-300 text-gray-800 rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5 outline-none">
+                        <label class="block text-base md:text-lg font-medium text-gray-700 mb-2">วันเริ่มต้น</label>
+                        <input type="date" id="startDate" required onchange="handleDateChange()" class="w-full bg-white border border-gray-300 text-gray-800 text-lg rounded-xl focus:ring-green-500 focus:border-green-500 block p-3 md:p-4 outline-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">วันสิ้นสุด (7 วัน)</label>
-                        <div class="bg-gray-100 border border-gray-200 rounded-lg p-2.5 flex items-center h-[42px]">
-                            <span id="endDateDisplay" class="text-sm font-medium text-gray-600"></span>
+                        <label class="block text-base md:text-lg font-medium text-gray-700 mb-2">วันสิ้นสุด (7 วัน)</label>
+                        <div class="bg-gray-100 border border-gray-200 rounded-xl p-3 md:p-4 flex items-center h-[54px] md:h-[62px]">
+                            <span id="endDateDisplay" class="text-base md:text-lg font-medium text-gray-600"></span>
                         </div>
                     </div>
                 </div>
 
-                <div class="pt-2 border-t border-green-200 mt-4">
-                    <label class="block text-sm font-medium text-blue-700 mb-1">วันที่ต้องส่ง รพ.สต.</label>
-                    <input type="date" id="submitDate" required class="w-full bg-white border border-gray-300 text-blue-800 font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none shadow-sm">
+                <div class="pt-4 border-t border-green-200 mt-6">
+                    <label class="block text-base md:text-lg font-medium text-blue-700 mb-2">วันที่ต้องส่ง รพ.สต.</label>
+                    <input type="date" id="submitDate" required class="w-full bg-white border border-gray-300 text-blue-800 text-lg font-medium rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-3 md:p-4 outline-none shadow-sm">
                 </div>
             </div>
 
-            <div class="flex gap-4 pt-4">
-                <button type="button" onclick="clearForm()" class="w-1/3 py-3 bg-white text-gray-700 border border-gray-300 rounded-xl shadow-sm hover:bg-gray-50 font-medium transition">
+            <div class="flex gap-4 pt-6">
+                <button type="button" onclick="clearForm()" class="w-1/3 py-4 md:py-5 bg-white text-gray-700 text-lg md:text-xl border border-gray-300 rounded-xl shadow-sm hover:bg-gray-50 font-medium transition">
                     ล้างค่า
                 </button>
-                <button type="submit" class="w-2/3 py-3 bg-blue-600 text-white rounded-xl shadow-md hover:bg-blue-700 font-medium transition flex justify-center items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button type="submit" class="w-2/3 py-4 md:py-5 bg-blue-600 text-white text-lg md:text-xl rounded-xl shadow-md hover:bg-blue-700 font-medium transition flex justify-center items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-7 md:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
@@ -176,25 +176,25 @@
         </div>
 
         <!-- Print Content Start -->
-        <div class="text-[15px] text-black">
+        <div class="text-[16pt] text-black font-normal leading-tight" style="font-family: 'TH SarabunPSK', 'Sarabun', sans-serif;">
             
             <!-- Submit Date -->
-            <div class="flex justify-end mb-2 text-[14px]">
-                <div class="flex items-end">
+            <div class="flex justify-end mb-2">
+                <div class="flex items-end font-bold">
                     <span class="whitespace-nowrap">วันที่ต้องส่ง รพ.สต.</span>
-                    <span class="dotted-line w-[130px] ml-2 font-medium" id="prev-submit-date"></span>
+                    <span class="dotted-line w-[130px] ml-2 font-bold" id="prev-submit-date"></span>
                 </div>
             </div>
 
             <!-- Title -->
-            <div class="text-center font-bold text-xl mt-8 mb-6">
+            <div class="text-center font-bold text-[20pt] mt-8 mb-3">
                 แบบบันทึกค่าความดันโลหิตที่บ้าน
             </div>
 
             <!-- Patient Info -->
-            <div class="mb-4 text-[15px]">
+            <div class="mb-2">
                 <!-- Row 1: Name, House No, Moo, Age -->
-                <div class="flex items-end justify-between w-full mb-3">
+                <div class="flex items-end justify-between w-full mb-1">
                     <div class="flex flex-grow">
                         <span class="whitespace-nowrap">ชื่อ</span>
                         <span class="dotted-line flex-grow ml-1 text-left pl-1 mr-3" id="prev-name"></span>
@@ -205,7 +205,7 @@
                     </div>
                     <div class="flex">
                         <span class="whitespace-nowrap">หมู่</span>
-                        <span class="dotted-line w-[25px] ml-1 mr-3" id="prev-moo"></span>
+                        <span class="dotted-line w-[40px] ml-1 mr-3" id="prev-moo"></span>
                         <span class="whitespace-nowrap">ตำบลห้วยโป่ง</span>
                     </div>
                     <div class="flex ml-3">
@@ -216,10 +216,10 @@
                 </div>
                 
                 <!-- Row 2: Hospital, Phone -->
-                <div class="flex items-end w-full mb-2">
-                    <div class="flex flex-1 mr-8">
+                <div class="flex items-end justify-between w-full mb-2">
+                    <div class="flex flex-grow mr-2">
                         <span class="whitespace-nowrap">สถานบริการ</span>
-                        <span class="dotted-line flex-1 ml-2 text-left pl-4">โรงพยาบาลส่งเสริมสุขภาพตำบลห้วยโป่ง</span>
+                        <span class="dotted-line flex-grow ml-2 text-left pl-4">โรงพยาบาลส่งเสริมสุขภาพตำบลห้วยโป่ง</span>
                     </div>
                     <div class="flex">
                         <span class="whitespace-nowrap">เบอร์โทรศัพท์</span>
@@ -228,31 +228,31 @@
                 </div>
             </div>
 
-            <table class="w-full border-collapse border border-black text-center mt-4 mb-2 text-[14px]">
+            <table class="w-full border-collapse border border-black text-center mt-3 mb-1 text-[15pt]">
                 <thead>
-                    <tr>
+                    <tr class="font-bold">
                         <th class="border border-black px-1 py-2 align-middle w-32" rowspan="2">วัน/เดือน/ปี</th>
                         <th class="border border-black px-1 py-1" colspan="3">ตอนเช้า ครั้งที่ 1</th>
                         <th class="border border-black px-1 py-1" colspan="3">ตอนเช้า ครั้งที่ 2</th>
                         <th class="border border-black px-1 py-1" colspan="3">ก่อนนอน ครั้งที่ 1</th>
                         <th class="border border-black px-1 py-1" colspan="3">ก่อนนอน ครั้งที่ 2</th>
                     </tr>
-                    <tr>
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวบน</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวล่าง</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ชีพจร</th>
+                    <tr class="font-bold text-[13pt]">
+                        <th class="border border-black px-1 py-1">ตัวบน</th>
+                        <th class="border border-black px-1 py-1">ตัวล่าง</th>
+                        <th class="border border-black px-1 py-1">ชีพจร</th>
                         
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวบน</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวล่าง</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ชีพจร</th>
+                        <th class="border border-black px-1 py-1">ตัวบน</th>
+                        <th class="border border-black px-1 py-1">ตัวล่าง</th>
+                        <th class="border border-black px-1 py-1">ชีพจร</th>
                         
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวบน</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวล่าง</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ชีพจร</th>
+                        <th class="border border-black px-1 py-1">ตัวบน</th>
+                        <th class="border border-black px-1 py-1">ตัวล่าง</th>
+                        <th class="border border-black px-1 py-1">ชีพจร</th>
                         
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวบน</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ตัวล่าง</th>
-                        <th class="border border-black px-1 py-1 text-xs font-normal w-12">ชีพจร</th>
+                        <th class="border border-black px-1 py-1">ตัวบน</th>
+                        <th class="border border-black px-1 py-1">ตัวล่าง</th>
+                        <th class="border border-black px-1 py-1">ชีพจร</th>
                     </tr>
                 </thead>
                 <tbody id="preview-tbody">
@@ -261,21 +261,21 @@
             </table>
 
             <!-- Footnotes & Instructions -->
-            <div class="mb-4 text-[14px]">
-                <p class="font-bold">***หมายเหตุ: กรุณาเขียนตัวเลขให้อยู่ในช่อง และเขียนด้วยตัวบรรจงให้อ่านออก</p>
-                <div class="mt-4 flex justify-center items-center text-center w-full">
+            <div class="mb-2">
+                <p class="font-bold text-[15pt] -mt-1">***หมายเหตุ: กรุณาเขียนตัวเลขให้อยู่ในช่อง และเขียนด้วยตัวบรรจงให้อ่านออก</p>
+                <div class="mt-3 flex justify-center items-center text-center w-full">
                     <span>ค่าความดันโลหิต เฉลี่ย 7 วัน =</span> <span class="dotted-line w-[120px] mx-2"></span> <span>mmHg</span> 
                     <span class="ml-8">ชีพจร เฉลี่ย =</span> <span class="dotted-line w-[120px] mx-2"></span> <span>ครั้ง/นาที</span>
                 </div>
             </div>
 
-            <div class="text-[14px] leading-relaxed mt-10">
-                <p class="font-bold mb-4 text-center text-lg">แนวทางการวัดความดันโลหิตที่บ้าน</p>
-                <ol class="list-decimal list-inside space-y-0.5">
+            <div class="mt-4" style="line-height: 1.1;">
+                <p class="font-bold mb-1 text-center text-[18pt]">แนวทางการวัดความดันโลหิตที่บ้าน</p>
+                <ol class="list-decimal list-inside space-y-0">
                     <li>เครื่องวัดความดันโลหิตเป็นเครื่องเดิมทุกครั้ง</li>
                     <li>ผู้วัดความดันโลหิตต้องเป็นบุคคลเดิมทุกครั้ง</li>
                     <li>สิ่งแวดล้อมในการวัดความดันโลหิต
-                        <ul class="list-none pl-6 space-y-0.5 mt-0.5">
+                        <ul class="list-none pl-6 space-y-0">
                             <li>3.1 วัดความดันโลหิตในที่เงียบสงบ</li>
                             <li>3.2 นั่งวัดเก้าอี้ที่มีพนักพิงหลังและไม่นั่งไขว่ห้าง และนั่งพัก 1 - 2 นาที ก่อนวัดความดันโลหิต</li>
                             <li>3.3 ระหว่างวัดความดันโลหิต ไม่พูดหรือออกเสียงใดๆ</li>
@@ -284,10 +284,10 @@
                             <li>3.6 ผู้ที่ใส่แขนเสื้อที่หนา ควรถอดเสื้อให้แผ่นพับต้นแขนติดกับผิวหนังต้นแขนโดยไม่มีแขนเสื้อคั้นกลาง</li>
                         </ul>
                     </li>
-                    <li class="mt-1">การวัดความดันโลหิตด้วยตนเองที่บ้าน หลังตื่นนอนตอนเช้าให้วัดภายใน 1 ชั่วโมง (หลังจากอุจจาระ ปัสสาวะแล้ว ไม่วัดความดันโลหิตขณะกลั้นอุจจาระ/ปัสสาวะ โดยวัดก่อนกินยาและกินอาหารเช้า) ส่วนการวัดความดันโลหิตสูงก่อนนอนเวลากลางคืน ให้ปฏิบัติเช่นเดียวกับการวัดความดันโลหิตหลังตื่นนอนตอนเช้า</li>
+                    <li class="mt-0">การวัดความดันโลหิตด้วยตนเองที่บ้าน หลังตื่นนอนตอนเช้าให้วัดภายใน 1 ชั่วโมง (หลังจากอุจจาระ ปัสสาวะแล้ว ไม่วัดความดันโลหิตขณะกลั้นอุจจาระ/ปัสสาวะ โดยวัดก่อนกินยาและกินอาหารเช้า) ส่วนการวัดความดันโลหิตสูงก่อนนอนเวลากลางคืน ให้ปฏิบัติเช่นเดียวกับการวัดความดันโลหิตหลังตื่นนอนตอนเช้า</li>
                 </ol>
                 
-                <div class="mt-8 text-right">
+                <div class="mt-6 text-right">
                     อสม.ที่รับผิดชอบ <span class="dotted-line w-[200px]"></span>
                 </div>
             </div>
@@ -378,7 +378,7 @@
                     /* เปลี่ยน py-3 เป็น py-2 เพื่อลดความสูงตารางลงเล็กน้อย ป้องกันตกหน้ากระดาษ แต่ยังมีพื้นที่พอเขียน */
                     let rowHtml = `
                         <tr>
-                            <td class="border border-black px-0.5 py-2 text-center text-[13px] whitespace-nowrap">${thaiDateText}</td>
+                            <td class="border border-black px-0.5 py-2 text-center text-[14pt] font-bold whitespace-nowrap">${thaiDateText}</td>
                             <td class="border border-black"></td><td class="border border-black"></td><td class="border border-black"></td>
                             <td class="border border-black"></td><td class="border border-black"></td><td class="border border-black"></td>
                             <td class="border border-black"></td><td class="border border-black"></td><td class="border border-black"></td>
