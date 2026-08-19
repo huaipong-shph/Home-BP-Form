@@ -24,11 +24,15 @@
                 size: A4;
                 margin: 0; /* ปิด margin เริ่มต้นของเครื่องปริ้น เพื่อใช้ padding ของเราเอง */
             }
-            body {
-                margin: 0;
+            html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 210mm;
+                height: 297mm;
                 background-color: white !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
+                overflow: hidden !important; /* บังคับตัดส่วนเกินทิ้ง ป้องกันหน้าเปล่าหน้าที่ 2 */
             }
             #form-section, .no-print {
                 display: none !important;
@@ -43,7 +47,9 @@
                 box-shadow: none !important;
                 border: none !important;
                 box-sizing: border-box;
-                overflow: hidden; /* ป้องกันเนื้อหาล้นขึ้นหน้าที่ 2 */
+                overflow: hidden !important;
+                page-break-after: avoid !important; /* สั่งห้ามขึ้นหน้าใหม่ */
+                page-break-inside: avoid !important;
             }
             /* ปรับลดระยะห่างบางจุดตอนสั่งพิมพ์ เพื่อรับประกันว่าไม่ตกหน้า */
             .mt-10 {
@@ -61,7 +67,7 @@
 </head>
 <body class="text-gray-800 antialiased min-h-screen pb-10">
 
-    <div id="form-section" class="max-w-2xl mx-auto mt-6 md:mt-12 bg-white p-6 md:p-10 rounded-2xl shadow-lg border border-gray-100">
+    <div id="form-section" class="max-w-4xl mx-auto mt-6 md:mt-12 bg-white p-6 md:p-10 rounded-2xl shadow-lg border border-gray-100">
         
         <!-- Header -->
         <div class="text-center mb-8">
