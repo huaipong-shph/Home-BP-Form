@@ -149,6 +149,36 @@
                 </button>
             </div>
         </form>
+
+        <!-- Footer & จำนวนผู้ใช้งาน -->
+        <div class="mt-8 pt-6 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <!-- Copyright (ฝั่งซ้าย) -->
+            <div class="text-gray-500 text-sm md:text-base font-medium flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                © โรงพยาบาลส่งเสริมสุขภาพตำบลห้วยโป่ง
+            </div>
+
+            <!-- สถิติการเข้าใช้งาน (ฝั่งขวา) -->
+            <div class="inline-flex items-center gap-3 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-sm hover:shadow-md transition-all duration-300">
+                <div class="flex items-center gap-2">
+                    <div class="bg-blue-50 p-1.5 rounded-full text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium text-gray-600">การใช้งานระบบ</span>
+                </div>
+                <!-- เส้นคั่นแนวตั้ง -->
+                <div class="w-px h-4 bg-gray-200"></div>
+                <!-- ป้ายนับจำนวน -->
+                <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbp-record-app.github.io&count_bg=%232563EB&title_bg=%234B5563&title=%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99&edge_flat=true" alt="สถิติผู้ใช้งาน" class="h-5 opacity-90 hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+
     </div>
 
     <div id="print-section" class="hidden max-w-[210mm] mx-auto bg-white shadow-xl mt-8 mb-8 p-[15mm]">
