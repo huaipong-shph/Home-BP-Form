@@ -162,15 +162,18 @@
             </div>
 
             <!-- สถิติการเข้าใช้งาน (ฝั่งขวา) -->
-            <div class="inline-flex items-center bg-[#333333] rounded-lg shadow-sm border border-[#444] p-1">
-                <div class="flex items-center gap-2 pl-2 pr-2.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+            <div class="flex items-center gap-3">
+                <!-- ไอคอนและข้อความ -->
+                <div class="flex items-center gap-1.5 text-gray-700 font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                     </svg>
-                    <span class="text-white text-sm font-medium tracking-wide">จำนวนผู้เข้าชม:</span>
+                    <span class="text-base tracking-wide mt-0.5">จำนวนผู้เข้าชม:</span>
                 </div>
-                <div class="bg-white rounded-md flex items-center justify-center px-1.5 py-0.5">
-                    <img src="https://hits.sh/bp-record-app.github.io.svg?label=&color=ffffff&style=flat-square" alt="stats" class="h-[20px] mix-blend-multiply">
+                <!-- กรอบตัวเลข (จัดกึ่งกลาง) -->
+                <div class="bg-white border border-gray-300 rounded-lg shadow-sm flex items-center justify-center min-w-[52px] h-[34px] px-2.5">
+                    <!-- รหัส &v=3 ด้านหลังสุด จะช่วยบังคับล้างแคชให้รูปภาพอัปเดตใหม่ทันที -->
+                    <img src="https://hits.sh/bp-record-app.github.io.svg?label=&color=ffffff&style=flat-square&v=3" alt="stats" class="h-[20px] object-contain mix-blend-multiply">
                 </div>
             </div>
         </div>
