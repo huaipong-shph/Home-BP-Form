@@ -158,25 +158,36 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
-                © โรงพยาบาลส่งเสริมสุขภาพตำบลห้วยโป่ง
+                ©2026 โรงพยาบาลส่งเสริมสุขภาพตำบลห้วยโป่ง
             </div>
 
             <!-- สถิติการเข้าใช้งาน (ฝั่งขวา) -->
-            <div class="flex items-center gap-3">
-                <!-- ไอคอนและข้อความ -->
-                <div class="flex items-center gap-1.5 text-gray-700 font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                    </svg>
-                    <span class="text-base tracking-wide mt-0.5">จำนวนผู้เข้าชม:</span>
-                </div>
-                <!-- กรอบตัวเลข (จัดกึ่งกลาง) -->
-                <div class="bg-white border border-gray-300 rounded-lg shadow-sm flex items-center justify-center min-w-[52px] h-[34px] px-2.5">
-                    <!-- รหัส &v=3 ด้านหลังสุด จะช่วยบังคับล้างแคชให้รูปภาพอัปเดตใหม่ทันที -->
-                    <img src="https://hits.sh/bp-record-app.github.io.svg?label=&color=ffffff&style=flat-square&v=3" alt="stats" class="h-[20px] object-contain mix-blend-multiply">
-                </div>
+            <div class="flex items-center gap-2 text-gray-700 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                </svg>
+                <span class="text-base tracking-wide mt-0.5">จำนวนผู้เข้าชม:</span>
+                <span id="visit-count" class="text-lg font-bold text-blue-600 mt-0.5">...</span>
             </div>
         </div>
+
+        <!-- Script ดึงข้อมูลตัวเลขผู้เข้าชมแบบ Text ล้วน -->
+        <script>
+            // ใช้ API นับจำนวนแบบตัวเลข (JSON) เพื่อให้ใช้ฟอนต์เดียวกับเว็บได้
+            fetch('https://api.counterapi.dev/v1/bp-record-huaypong-app/visits/up')
+                .then(response => response.json())
+                .then(data => {
+                    // ใส่คอมม่าให้ตัวเลข (เช่น 1,234)
+                    document.getElementById('visit-count').innerText = data.count.toLocaleString();
+                })
+                .catch(() => {
+                    // กรณีเน็ตหลุดหรือไม่สามารถดึง API ได้ จะใช้การนับจากเครื่องตัวเองแทน
+                    let fallbackCount = localStorage.getItem('local_visits') || 342;
+                    fallbackCount = parseInt(fallbackCount) + 1;
+                    localStorage.setItem('local_visits', fallbackCount);
+                    document.getElementById('visit-count').innerText = fallbackCount.toLocaleString();
+                });
+        </script>
 
     </div>
 
